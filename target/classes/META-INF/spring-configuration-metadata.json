@@ -1,0 +1,22 @@
+{
+  "groups": [
+    {
+      "name": "",
+      "type": "br.com.service.doit.component.App1",
+      "sourceType": "br.com.service.doit.component.App1"
+    }
+  ],
+  "properties": [
+    {
+      "name": "login",
+      "type": "java.lang.String",
+      "sourceType": "br.com.service.doit.component.App1"
+    },
+    {
+      "name": "password",
+      "type": "java.lang.String",
+      "sourceType": "br.com.service.doit.component.App1"
+    }
+  ],
+  "hints": []
+}

@@ -12,7 +12,7 @@ public class App1 {
     @Value("${username}")
     public String login;
 
-   @Value("${password}")
+    @Value("${password}")
     public String password;
     
 }
