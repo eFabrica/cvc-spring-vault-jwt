@@ -1,6 +1,7 @@
 package br.com.service.doit.config;
 
 import br.com.service.doit.security.JWTAuthenticationFilter;
+import br.com.service.doit.security.JWTAuthorizationFilter;
 import br.com.service.doit.security.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -45,6 +46,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                                        .authenticated();
 
         http.addFilter(new JWTAuthenticationFilter(authenticationManager(),jwtUtil));
+        http.addFilter(new JWTAuthorizationFilter(authenticationManager(),jwtUtil,userDetailsService));
+
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
     }

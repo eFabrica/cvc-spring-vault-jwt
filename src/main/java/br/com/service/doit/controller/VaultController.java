@@ -22,7 +22,7 @@ public class VaultController {
 	@RequestMapping(value = "/teste",method = RequestMethod.POST)
     public ResponseEntity<String> teste() {
 
-	return ResponseEntity.ok("teste");
+	return ResponseEntity.ok("URL EXPOSTA SEM PRECISA AUTENTICAR");
 
 	}
 
@@ -33,7 +33,7 @@ public class VaultController {
 	 log.info("username: " + this.vaultService.returnoApp1().login);
 	 log.info("password: " + this.vaultService.returnoApp1().password);
 
-	 return ResponseEntity.ok("teste");
+	 return ResponseEntity.ok("ESSA URL NECESSITA DO TOKEN PARA SER ACESSADA");
 
 	}
 
