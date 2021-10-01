@@ -44,11 +44,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
             CredenciaisDTO credenciaisDTO = new ObjectMapper().readValue(request.getInputStream(),CredenciaisDTO.class);
 
-            log.info("email: " + credenciaisDTO.getEmail());
-            log.info("senha: " + credenciaisDTO.getSenha());
-
-
-            //spring Securuty token
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(credenciaisDTO.getEmail(),
                     credenciaisDTO.getSenha(),
                     new ArrayList<>()
@@ -104,9 +99,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                     + "\"path\": \"/login\"}";
         }
     }
-
-
-
 
 
 }
