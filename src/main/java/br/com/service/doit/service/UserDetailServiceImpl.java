@@ -19,10 +19,8 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
     /*
       HARD CODE DOS DADOS ABAIXO, DEPOIS E SO PLUGAR O DATABASE AQUI
-
       FALTA AUTORITY COM ROOLES SETEI COMO NULL
-
-     */
+    */
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
