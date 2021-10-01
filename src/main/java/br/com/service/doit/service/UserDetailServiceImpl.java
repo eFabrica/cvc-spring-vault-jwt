@@ -18,8 +18,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
 
     /*
-      HARD CODE DOS DADOS ABAIXO, DEPOIS E SO PLUGAR O BD AQUI
-      ATENÇÃO COLOQUEI O EMAIL....LUGAR DE ATENÇÃO plugar o vault depois
+      HARD CODE DOS DADOS ABAIXO, DEPOIS E SO PLUGAR O DATABASE AQUI
 
       FALTA AUTORITY COM ROOLES SETEI COMO NULL
 
@@ -33,7 +32,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
 
      //DADOS MOCADOS PLUGAR DATABASE AQUI
-     UserSS userSS = new UserSS(1,"cvc@cvc.com.br","cvc@cvc.com.br",senha,null);
+     UserSS userSS = new UserSS(1,"cvc@cvc.com.br","cvcuser",senha,null);
 
      return userSS;
 
