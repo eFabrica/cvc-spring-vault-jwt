@@ -32,7 +32,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
      String senha = bCryptPasswordEncoder.encode("cvcpwd12");
 
 
-     //DADOS MOCADOS PLUGAR DATABSE AQUI
+     //DADOS MOCADOS PLUGAR DATABASE AQUI
      UserSS userSS = new UserSS(1,"cvc@cvc.com.br","cvc@cvc.com.br",senha,null);
 
      return userSS;

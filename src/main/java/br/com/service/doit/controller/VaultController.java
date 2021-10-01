@@ -27,7 +27,7 @@ public class VaultController {
 	private JWTUtil jwtUtil;
 
 
-	@RequestMapping(value = "/teste",method = RequestMethod.POST)
+	@RequestMapping(value = "/teste",method = RequestMethod.GET)
     public ResponseEntity<String> teste() {
 
 	return ResponseEntity.ok("URL EXPOSTA SEM PRECISA AUTENTICAR, NAO E NECESSARIO O TOKEN");
