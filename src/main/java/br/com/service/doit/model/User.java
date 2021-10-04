@@ -17,7 +17,9 @@ import lombok.Data;
 
 /**
  * The persistent class for the users database table.
- * 
+ * ESSE MODEL E PARA O H2
+ *
+ *
  */
 @Data
 @Entity
