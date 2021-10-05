@@ -20,7 +20,8 @@
     {
       "name": "login",
       "type": "java.lang.String",
-      "sourceType": "br.com.service.doit.component.UserMock"
+      "sourceType": "br.com.service.doit.component.UserMock",
+      "defaultValue": "cvcuser14"
     },
     {
       "name": "password",
@@ -30,7 +31,8 @@
     {
       "name": "password",
       "type": "java.lang.String",
-      "sourceType": "br.com.service.doit.component.UserMock"
+      "sourceType": "br.com.service.doit.component.UserMock",
+      "defaultValue": "cvcpwd"
     }
   ],
   "hints": []
