@@ -9,8 +9,10 @@ import java.util.Collection;
 @AllArgsConstructor
 @ToString
 public class UserSS implements UserDetails {
-
-    private Integer id;
+	
+	private static final long serialVersionUID = -9216681746294294148L;
+	
+	private Integer id;
     private String email;
     private String username;
     private String senha;

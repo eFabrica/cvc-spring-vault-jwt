@@ -1,8 +1,15 @@
 package br.com.service.doit.security;
 
-import br.com.service.doit.dto.CredenciaisDTO;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.extern.slf4j.Slf4j;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -10,94 +17,73 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-@Slf4j
+import br.com.service.doit.dto.CredenciaisDTO;
+import br.com.service.doit.exception.CVCException;
+import br.com.service.doit.util.Constants;
+
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
+	private AuthenticationManager authenticationManager;
+	private JWTUtil jwtUtil;
 
-    private AuthenticationManager authenticationManager;
-    private JWTUtil jwtUtil;
+	public JWTAuthenticationFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil) {
 
+		setAuthenticationFailureHandler(new JWTAuthenticationFailureHandler());
+		this.authenticationManager = authenticationManager;
+		this.jwtUtil = jwtUtil;
 
-    public JWTAuthenticationFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil) {
+	}
 
-        setAuthenticationFailureHandler(new JWTAuthenticationFailureHandler());
+	@Override
+	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
+			throws AuthenticationException {
 
-        this.authenticationManager = authenticationManager;
-        this.jwtUtil = jwtUtil;
+		try {
 
-    }
+			CredenciaisDTO credenciaisDTO = new ObjectMapper().readValue(request.getInputStream(),
+					CredenciaisDTO.class);
 
+			UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
+					credenciaisDTO.getUsername(), credenciaisDTO.getPassword(), new ArrayList<>());
 
-    @Override
-    public Authentication attemptAuthentication(HttpServletRequest request,
-                                                HttpServletResponse response) throws AuthenticationException {
+			Authentication authentication = authenticationManager.authenticate(token);
 
-        try {
+			return authentication;
 
-            CredenciaisDTO credenciaisDTO = new ObjectMapper().readValue(request.getInputStream(),CredenciaisDTO.class);
+		} catch (IOException e) {
+			throw CVCException.builder().description(e.getMessage()).build();
+		}
 
-            UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(credenciaisDTO.getUsername(),
-                    credenciaisDTO.getPassword(),
-                    new ArrayList<>()
-            );
+	}
 
-            Authentication authentication = authenticationManager.authenticate(token);
+	@Override
+	protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain,
+			Authentication authentication) throws IOException, ServletException {
 
+		String username = ((UserSS) authentication.getPrincipal()).getUsername();
+		String token = jwtUtil.generateToken(username);
+		res.addHeader("Authorization", "Bearer " + token);
+		res.addHeader("access-control-expose-headers", "Authorization");
+		res.getWriter().println("Bearer " + token);
+	}
 
-            return authentication;
+	private class JWTAuthenticationFailureHandler implements AuthenticationFailureHandler {
 
+		@Override
+		public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
+				AuthenticationException exception) throws IOException, ServletException {
+			response.setStatus(401);
+			response.setContentType("application/json");
+			response.getWriter().append(json());
+		}
 
-        }catch (IOException exception) {
-
-            throw new RuntimeException(exception);
-
-        }
-
-    }
-
-
-    @Override
-    protected void successfulAuthentication(HttpServletRequest req,
-                                            HttpServletResponse res,
-                                            FilterChain chain,
-                                            Authentication authentication) throws IOException, ServletException {
-
-        String username = ((UserSS) authentication.getPrincipal()).getUsername();
-        String token = jwtUtil.generateToken(username);
-        res.addHeader("Authorization", "Bearer " + token);
-        res.addHeader("access-control-expose-headers", "Authorization");
-        res.getWriter().println("Bearer " + token);
-    }
-
-    private class JWTAuthenticationFailureHandler implements AuthenticationFailureHandler {
-
-        @Override
-        public void onAuthenticationFailure(HttpServletRequest request,
-                                            HttpServletResponse response,
-                                            AuthenticationException exception)
-                throws IOException, ServletException {
-            response.setStatus(401);
-            response.setContentType("application/json");
-            response.getWriter().append(json());
-        }
-
-        private String json() {
-            long date = new Date().getTime();
-            return "{\"timestamp\": " + date + ", "
-                    + "\"status\": 401, "
-                    + "\"error\": \"Não autorizado\", "
-                    + "\"message\": \"Email ou senha inválidos\", "
-                    + "\"path\": \"/login\"}";
-        }
-    }
-
+		private String json() {
+			long date = new Date().getTime();
+			return "{\"timestamp\": " + date + ", " + "\"status\": 401, " + "\"error\": \"Não autorizado\", "
+					+ "\"message\": \"Email ou senha inválidos\", " + "\"path\": \"/login\"}";
+		}
+	}
 
 }
