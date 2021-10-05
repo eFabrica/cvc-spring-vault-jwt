@@ -7,12 +7,12 @@ import lombok.Data;
 
 @Data
 @ConfigurationProperties
-public class App1 {
+public class SecretVaultCVC {
 
     @Value("${username}")
-    public String login;
+    private String login;
 
     @Value("${password}")
-    public String password;
+    private String password;
     
 }

@@ -2,20 +2,35 @@
   "groups": [
     {
       "name": "",
-      "type": "br.com.service.doit.component.App1",
-      "sourceType": "br.com.service.doit.component.App1"
+      "type": "br.com.service.doit.component.SecretVaultCVC",
+      "sourceType": "br.com.service.doit.component.SecretVaultCVC"
+    },
+    {
+      "name": "",
+      "type": "br.com.service.doit.component.UserMock",
+      "sourceType": "br.com.service.doit.component.UserMock"
     }
   ],
   "properties": [
     {
       "name": "login",
       "type": "java.lang.String",
-      "sourceType": "br.com.service.doit.component.App1"
+      "sourceType": "br.com.service.doit.component.SecretVaultCVC"
+    },
+    {
+      "name": "login",
+      "type": "java.lang.String",
+      "sourceType": "br.com.service.doit.component.UserMock"
     },
     {
       "name": "password",
       "type": "java.lang.String",
-      "sourceType": "br.com.service.doit.component.App1"
+      "sourceType": "br.com.service.doit.component.SecretVaultCVC"
+    },
+    {
+      "name": "password",
+      "type": "java.lang.String",
+      "sourceType": "br.com.service.doit.component.UserMock"
     }
   ],
   "hints": []

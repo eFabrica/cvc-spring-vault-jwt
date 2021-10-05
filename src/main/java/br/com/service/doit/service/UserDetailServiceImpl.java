@@ -1,6 +1,6 @@
 package br.com.service.doit.service;
 
-import br.com.service.doit.component.App1;
+import br.com.service.doit.component.SecretVaultCVC;
 import br.com.service.doit.security.UserSS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,7 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class UserDetailServiceImpl implements UserDetailsService {
 
     @Autowired
-    App1 app1;
+    SecretVaultCVC app1;
 
 
     /*
