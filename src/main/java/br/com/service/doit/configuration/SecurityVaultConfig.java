@@ -39,7 +39,7 @@ public class SecurityVaultConfig extends WebSecurityConfigurerAdapter {
 
 		http.authorizeRequests()
 
-				.antMatchers("/v1/autentication/teste",
+				.antMatchers("/v1/autentication/url_desprotegida",
 						                "/v2/api-docs",
 						                "/configuration/ui",
 						                "/swagger-resources/**",
