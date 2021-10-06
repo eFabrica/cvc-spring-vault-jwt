@@ -2,21 +2,16 @@
   "groups": [
     {
       "name": "",
-      "type": "br.com.service.doit.component.SecretVaultCVC",
-      "sourceType": "br.com.service.doit.component.SecretVaultCVC"
+      "type": "br.com.service.doit.component.UserMock",
+      "sourceType": "br.com.service.doit.component.UserMock"
     },
     {
       "name": "",
-      "type": "br.com.service.doit.component.UserMock",
-      "sourceType": "br.com.service.doit.component.UserMock"
+      "type": "br.com.service.doit.component.SecretVaultCVC",
+      "sourceType": "br.com.service.doit.component.SecretVaultCVC"
     }
   ],
   "properties": [
-    {
-      "name": "login",
-      "type": "java.lang.String",
-      "sourceType": "br.com.service.doit.component.SecretVaultCVC"
-    },
     {
       "name": "login",
       "type": "java.lang.String",
@@ -24,7 +19,7 @@
       "defaultValue": "cvcuser14"
     },
     {
-      "name": "password",
+      "name": "login",
       "type": "java.lang.String",
       "sourceType": "br.com.service.doit.component.SecretVaultCVC"
     },
@@ -33,6 +28,11 @@
       "type": "java.lang.String",
       "sourceType": "br.com.service.doit.component.UserMock",
       "defaultValue": "cvcpwd"
+    },
+    {
+      "name": "password",
+      "type": "java.lang.String",
+      "sourceType": "br.com.service.doit.component.SecretVaultCVC"
     }
   ],
   "hints": []
