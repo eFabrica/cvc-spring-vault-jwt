@@ -2,6 +2,7 @@ package br.com.service.doit.controller;
 
 import javax.servlet.http.HttpServletResponse;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +16,10 @@ import br.com.service.doit.service.UserService;
 @RestController
 @CrossOrigin
 @RequestMapping("/v1/autentication")
+@RequiredArgsConstructor
 public class AutenticationController {
 
-	@Autowired
-	private JWTUtil jwtUtil;
-
+	private final JWTUtil jwtUtil;
 
 	@Value("${cvc.url.elk}")
 	private String elkUrl;
