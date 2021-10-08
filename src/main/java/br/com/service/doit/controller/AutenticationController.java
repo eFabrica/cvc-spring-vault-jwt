@@ -5,11 +5,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 import br.com.service.doit.security.JWTUtil;
 import br.com.service.doit.security.UserSS;
@@ -70,6 +67,20 @@ public class AutenticationController {
 		return ResponseEntity.ok(vaultUrl);
 	}
 
+
+	@PreAuthorize("hasRole('ADMIN')")
+	@RequestMapping(value="/adminping", method = RequestMethod.GET)
+	public String adminPing(){
+		return "Only Admins Can Read This";
+	}
+
+
+
+	@PreAuthorize("hasRole('USER')")
+	@RequestMapping(value="/userping", method = RequestMethod.GET)
+	public String userPing(){
+		return "Any User Can Read This";
+	}
 
 
 }

@@ -3,6 +3,7 @@ package br.com.service.doit.security;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -14,6 +15,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -45,8 +47,16 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 			CredenciaisDTO credenciaisDTO = new ObjectMapper().readValue(request.getInputStream(),
 					CredenciaisDTO.class);
 
+
+			Authority authority = new Authority(credenciaisDTO.getRole());
+			List <GrantedAuthority> listAuthorities = new ArrayList<GrantedAuthority>();
+			listAuthorities.add(authority);
+
+
 			UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-					credenciaisDTO.getUsername(), credenciaisDTO.getPassword(), new ArrayList<>());
+					                                                                             credenciaisDTO.getUsername(),
+					                                                                             credenciaisDTO.getPassword(),
+					                                                                             listAuthorities);
 
 			Authentication authentication = authenticationManager.authenticate(token);
 
